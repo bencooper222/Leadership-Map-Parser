@@ -20,15 +20,14 @@ namespace LeadershipMap
 
         public Leader CreateLeader(string rowText)
         {
-            Leader lead = new Leader(GetElementFromRowText(0, rowText), GetElementFromRowText(1, rowText), gradClass);
-
-
             int gradClass = 0;
             Int32.TryParse(GetElementFromRowText(2, rowText), out gradClass); // grab the graduating class
 
+            Leader lead = new Leader(GetElementFromRowText(0, rowText), GetElementFromRowText(1, rowText), gradClass);
+
             string[] arrayPerson = GetArrayOfElements(rowText);
 
-            for (int i = 3; i < arrayPerson.Count(); i++)
+            for (int i = 3; i < arrayPerson.Count(); i++) 
             {
                 lead.Organizations.Add(arra)
             }
