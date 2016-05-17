@@ -32,9 +32,9 @@ namespace LeadershipMap
                 }
             }
 
-            foreach(Friendship friend in friendships) // make sure that all the friendships have actual leaders in them - just for robustness
+            foreach(Friendship fship in friendships) // make sure that all the friendships have actual leaders in them - just for robustness
             {
-                foreach(Leader lead in friend.Members)
+                foreach(Leader lead in fship.friends)
                 {
                     if (!leaders.Contains(lead))
                     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace LeadershipMap
 {
@@ -37,6 +38,11 @@ namespace LeadershipMap
             }
 
             return sum / doubles.Count;
+        }
+
+        public string ToJson()
+        {
+            throw new NotImplementedException();
         }
 
     }
