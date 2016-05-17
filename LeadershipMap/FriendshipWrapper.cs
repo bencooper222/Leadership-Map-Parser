@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
-    class FriendshipWrapper : Wrapper
+    class FriendshipWrapper : JsonWrapper
     {
         string id;
         string source;
@@ -18,7 +18,6 @@ namespace LeadershipMap
             id = ship.uniqueId;
             source = ship.friends[0].uniqueID;
             target = ship.friends[1].uniqueID;
-
         }
 
     }

@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
-    class LeaderWrapper : Wrapper
+    class LeaderWrapper : JsonWrapper
     {
         string id;
         string label; // fullname

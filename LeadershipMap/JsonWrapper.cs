@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
-    abstract class Wrapper
+    abstract class JsonWrapper
     {
         public string ToJson()
         {
