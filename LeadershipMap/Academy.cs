@@ -54,7 +54,8 @@ namespace LeadershipMap
 
             foreach(Leader lead in leaders)
             {
-                writer.WriteLine(lead.ToJson());
+                LeaderWrapper leadWrap = new LeaderWrapper(lead);
+                writer.WriteLine(leadWrap.ToJson());
             }
         }
 

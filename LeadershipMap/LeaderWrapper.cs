@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
-    class LeaderWrapper
+    class LeaderWrapper : Wrapper
     {
         string id;
         string label; // fullname
@@ -24,10 +24,6 @@ namespace LeadershipMap
             this.x = x;
             this.y = y;
         }
-
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
+        
     }
 }

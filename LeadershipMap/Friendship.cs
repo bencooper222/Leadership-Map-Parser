@@ -9,7 +9,14 @@ namespace LeadershipMap
         private bool crowdSourced;
         private List<double> Ratings;
         public double friendshipStrength { get; }
-        
+
+        public string uniqueId
+        {
+            get
+            {
+                return friends[0] + "/" + friends[1];
+            }
+        }
 
         public Friendship(Leader friend1, Leader friend2, bool friend1RatingExist, bool friend2RatingExist, params double[] ratings)
         {
@@ -19,22 +26,22 @@ namespace LeadershipMap
             friends[0] = friend1;
             friends[1] = friend2;
 
-    
 
-            foreach(double d in ratings)
+
+            foreach (double d in ratings)
             {
                 Ratings.Add(d);
             }
 
             friendshipStrength = Average(Ratings);
-            
-         }
+
+        }
 
         private double Average(List<double> doubles)
         {
             double sum = 0;
 
-            foreach(double d in doubles)
+            foreach (double d in doubles)
             {
                 sum += d;
             }

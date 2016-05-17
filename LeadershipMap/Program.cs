@@ -15,7 +15,7 @@ namespace LeadershipMap
 
             Leader anon = lParse.CreateLeader(lParse.GetRow(0)); // privacy protections OP
 
-            Console.WriteLine(anon.ToJson());
+            
             /*
             List<Friendship> TEST = new List<Friendship>();
 
