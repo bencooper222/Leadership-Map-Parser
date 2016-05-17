@@ -29,7 +29,7 @@ namespace LeadershipMap
 
             for (int i = 3; i < arrayPerson.Count(); i++) 
             {
-                lead.Organizations.Add(arra)
+                lead.Organizations.Add(); // waiting for functional organization class
             }
 
             return lead;
