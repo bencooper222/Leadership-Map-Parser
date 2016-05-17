@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace LeadershipMap
 {
@@ -11,6 +12,7 @@ namespace LeadershipMap
         public List<Organization> organizations { get; set; }
         public List<Leader> leaders { get; set; }
         public List<Friendship> friendships { get; set; }
+      
 
         string name { get; set; }
 
@@ -41,6 +43,26 @@ namespace LeadershipMap
                         throw new InvalidProgramException();
                     }
                 }
+            }
+        }
+
+        public void CreateVerticesFile()
+        {
+            StreamWriter writer = File.CreateText("leaders.txt");
+
+            foreach(Leader lead in leaders)
+            {
+                writer.WriteLine(lead.ToJson());
+            }
+        }
+
+        public void CreateEdgesFile()
+        {
+            StreamWriter writer = File.CreateText("friendships.txt");
+
+            foreach (Friendship friend in friendships)
+            {
+                writer.WriteLine(friend.ToJson());
             }
         }
     }
