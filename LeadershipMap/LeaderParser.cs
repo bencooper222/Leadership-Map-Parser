@@ -18,19 +18,17 @@ namespace LeadershipMap
             reader = new StreamReader(txtFileLocation);
         }
 
+        /// <summary>
+        /// Only returns a leader object that DOES not have its organizations
+        /// </summary>
+        /// <param name="rowText"></param>
+        /// <returns></returns>
         public Leader CreateLeader(string rowText)
         {
             int gradClass = 0;
             Int32.TryParse(GetElementFromRowText(2, rowText), out gradClass); // grab the graduating class
 
             Leader lead = new Leader(GetElementFromRowText(0, rowText), GetElementFromRowText(1, rowText), gradClass);
-
-            string[] arrayPerson = GetArrayOfElements(rowText);
-
-            for (int i = 3; i < arrayPerson.Count(); i++) 
-            {
-                lead.Organizations.Add(); // waiting for functional organization class
-            }
 
             return lead;
         }

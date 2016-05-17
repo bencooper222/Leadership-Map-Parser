@@ -11,9 +11,11 @@ namespace LeadershipMap
         static void Main(string[] args)
         {
 
-            LeaderParser parse = new LeaderParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Leaders.csv");
+            LeaderParser lParse = new LeaderParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Leaders.csv");
 
-            Console.Write(parse.CreateLeader(parse.GetRow(0)));
+            List<Friendship> TEST = new List<Friendship>();
+
+            Academy imsa = new Academy("imsa", lParse.CreateLeaderObjects(), TEST);
 
             Console.Read();
         }

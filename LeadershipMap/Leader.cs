@@ -12,6 +12,18 @@ namespace LeadershipMap
         public string fullName { get { return firstName + " " + lastName; } }
         public string uniqueID { get; set; }
 
+        public bool hasOrganizations
+        {
+            get
+            {
+                if (Organizations.Count > 0)
+                {
+                    return true;
+                }
+                else { return false; }
+            }
+        }
+
         public int gradClass { get; set; } // make sure to throw ArgumentOutOfRangeException() if this isn't 6,7 or 8
 
         public Leader(string name, string uniqueID, int classNumber)
@@ -31,12 +43,26 @@ namespace LeadershipMap
 
         public static bool operator ==(Leader one, Leader two)
         {
-            throw new NotImplementedException();
+            if (one.uniqueID == two.uniqueID)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static bool operator !=(Leader one, Leader two)
         {
-            throw new NotImplementedException();
+            if (one.uniqueID == two.uniqueID)
+            {
+                return !true;
+            }
+            else
+            {
+                return !false;
+            }
         }
 
         public string ToJson()
