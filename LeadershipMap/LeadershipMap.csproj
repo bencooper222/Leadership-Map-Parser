@@ -50,7 +50,9 @@
     <Compile Include="Academy.cs" />
     <Compile Include="Friendship.cs" />
     <Compile Include="Leader.cs" />
+    <Compile Include="LeaderParser.cs" />
     <Compile Include="Organization.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

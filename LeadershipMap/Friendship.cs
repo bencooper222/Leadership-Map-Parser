@@ -18,7 +18,9 @@ namespace LeadershipMap
             friends = new Leader[2]; // make the friends data property
             friends[0] = friend1;
             friends[1] = friend2;
-            
+
+    
+
             foreach(double d in ratings)
             {
                 Ratings.Add(d);
