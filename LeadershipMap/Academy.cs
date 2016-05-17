@@ -9,7 +9,7 @@ namespace LeadershipMap
 {
     class Academy
     {
-        public List<Organization> organizations { get; set; }
+
         public List<Leader> leaders { get; set; }
         public List<Friendship> friendships { get; set; }
       
@@ -23,6 +23,8 @@ namespace LeadershipMap
             leaders = leads;
             friendships = bffls;
 
+            // might bring back that stuff but with strings
+/*
             foreach(Leader lead in leads) // add each leader's organizations if it is not already in the list
             {
                 foreach(Organization org in lead.Organizations)
@@ -33,7 +35,7 @@ namespace LeadershipMap
                     }
                 }
             }
-
+            */
             foreach(Friendship fship in friendships) // make sure that all the friendships have actual leaders in them - just for robustness
             {
                 foreach(Leader lead in fship.friends)

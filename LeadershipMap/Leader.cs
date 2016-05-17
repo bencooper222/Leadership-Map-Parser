@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System;
+using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
     public class Leader
     {
-        public List<Organization> Organizations { get; set; }
+        public List<string> Organizations { get; set; }
 
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -33,7 +34,9 @@ namespace LeadershipMap
             this.uniqueID = uniqueID;
 
             gradClass = classNumber; // throw that exception here pls
-            //finish
+
+
+            Organizations = new List<string>();
         }
 
         public override string ToString()
@@ -65,9 +68,6 @@ namespace LeadershipMap
             }
         }
 
-        public string ToJson()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

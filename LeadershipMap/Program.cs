@@ -13,11 +13,15 @@ namespace LeadershipMap
 
             LeaderParser lParse = new LeaderParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Leaders.csv");
 
+            Leader anon = lParse.CreateLeader(lParse.GetRow(0)); // privacy protections OP
+
+            Console.WriteLine(anon.ToJson());
+            /*
             List<Friendship> TEST = new List<Friendship>();
 
             Academy imsa = new Academy("imsa", lParse.CreateLeaderObjects(), TEST);
-
-            Console.Read();
+            */
+            Console.Read(); 
         }
     }
 }

@@ -30,6 +30,14 @@ namespace LeadershipMap
 
             Leader lead = new Leader(GetElementFromRowText(0, rowText), GetElementFromRowText(1, rowText), gradClass);
 
+            string[] leaderElement = GetArrayOfElements(rowText);
+
+            for (int i = 4; i < leaderElement.Count(); i++) //list of orgs
+            {
+                lead.Organizations.Add(leaderElement[i]);
+            }
+
+
             return lead;
         }
 
@@ -44,5 +52,7 @@ namespace LeadershipMap
 
             return leaders;
         }
+
+
     }
 }
