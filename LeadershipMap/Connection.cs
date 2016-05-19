@@ -3,28 +3,28 @@ using System;
 
 namespace LeadershipMap
 {
-    public class Friendship
+    public class Connection
     {
-        public Leader[] friends { get; set; }
+        public Leader[] connections { get; set; }
         private bool crowdSourced;
         private List<double> Ratings;
-        public double friendshipStrength { get; }
+        public double connectionStrength { get; }
 
         public string uniqueId
         {
             get
             {
-                return friends[0] + "/" + friends[1];
+                return connections[0] + "/" + connections[1];
             }
         }
 
-        public Friendship(Leader friend1, Leader friend2, bool friend1RatingExist, bool friend2RatingExist, params double[] ratings)
+        public Connection(Leader friend1, Leader friend2, bool friend1RatingExist, bool friend2RatingExist, params double[] ratings)
         {
             crowdSourced = (friend1RatingExist && friend1RatingExist) ? true : false; //if both friends responded, then it counts as crowdsourced.
 
-            friends = new Leader[2]; // make the friends data property
-            friends[0] = friend1;
-            friends[1] = friend2;
+            connections = new Leader[2]; // make the friends data property
+            connections[0] = friend1;
+            connections[1] = friend2;
 
 
 
@@ -33,7 +33,7 @@ namespace LeadershipMap
                 Ratings.Add(d);
             }
 
-            friendshipStrength = Average(Ratings);
+            connectionStrength = Average(Ratings);
 
         }
 

@@ -11,17 +11,17 @@ namespace LeadershipMap
     {
 
         public List<Leader> leaders { get; set; }
-        public List<Friendship> friendships { get; set; }
+        public List<Connection> connections { get; set; }
       
 
         string name { get; set; }
 
-        public Academy(string name, List<Leader> leads, List<Friendship> bffls)
+        public Academy(string name, List<Leader> leads, List<Connection> connectees)
         {
             this.name = name;
 
             leaders = leads;
-            friendships = bffls;
+            connections = connectees;
 
             // might bring back that stuff but with strings
 /*
@@ -36,9 +36,9 @@ namespace LeadershipMap
                 }
             }
             */
-            foreach(Friendship fship in friendships) // make sure that all the friendships have actual leaders in them - just for robustness
+            foreach(Connection connect in connections) // make sure that all the friendships have actual leaders in them - just for robustness
             {
-                foreach(Leader lead in fship.friends)
+                foreach(Leader lead in connect.connections)
                 {
                     if (!leaders.Contains(lead))
                     {
@@ -63,10 +63,12 @@ namespace LeadershipMap
         {
             StreamWriter writer = File.CreateText("friendships.txt");
 
-            foreach (Friendship friend in friendships)
+            writer.WriteLine("\"nodes\"" + ": [");
+            foreach (Connection connectee in connections)
             {
-                writer.WriteLine(friend.ToJson());
+                writer.WriteLine(connectee.ToJson());
             }
+            writer.WriteLine("]");
         }
     }
 }

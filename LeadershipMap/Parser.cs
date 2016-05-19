@@ -27,7 +27,11 @@ namespace LeadershipMap
         /// <returns></returns>
         public string GetRow(int lineNumber)
         {
-            return File.ReadLines(txtFileLocation).Skip(lineNumber - 1).Take(1).First();
+            if (lineNumber >= CountLines()) // make sure the index goes from 0 to total-1
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            return File.ReadLines(txtFileLocation).Skip(lineNumber).Take(1).First();
         }
 
         /// <summary>

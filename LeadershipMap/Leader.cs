@@ -30,7 +30,7 @@ namespace LeadershipMap
         public Leader(string name, string uniqueID, int classNumber)
         {
             firstName = name.Substring(0, name.IndexOf(' '));
-            lastName = name.Substring(name.IndexOf(' '));
+            lastName = name.Substring(name.IndexOf(' ') + 1);
             this.uniqueID = uniqueID;
 
             gradClass = classNumber; // throw that exception here pls
@@ -68,6 +68,6 @@ namespace LeadershipMap
             }
         }
 
-       
+
     }
 }

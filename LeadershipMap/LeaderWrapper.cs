@@ -7,15 +7,15 @@ using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
-    class LeaderWrapper : JsonWrapper
+    public class LeaderWrapper : JsonWrapper
     {
-        string id;
-        string label; // fullname
+        public string id;
+        public string label; // fullname
 
-        int x;
-        int y;
+        public int x;
+        public int y;
 
-        static int size = 1;
+        public static int size = 1;
         public LeaderWrapper(Leader leader, int x = 0, int y = 0)
         {
             id = leader.uniqueID;
@@ -24,6 +24,7 @@ namespace LeadershipMap
             this.x = x;
             this.y = y;
         }
-        
+
+      
     }
 }

@@ -48,8 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Academy.cs" />
-    <Compile Include="Friendship.cs" />
-    <Compile Include="FriendshipWrapper.cs" />
+    <Compile Include="Connection.cs" />
+    <Compile Include="ConnectionWrapper.cs" />
     <Compile Include="Leader.cs" />
     <Compile Include="LeaderParser.cs" />
     <Compile Include="LeaderWrapper.cs" />

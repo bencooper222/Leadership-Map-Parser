@@ -7,11 +7,12 @@ using Newtonsoft.Json;
 
 namespace LeadershipMap
 {
-    abstract class JsonWrapper
+    public abstract class JsonWrapper
     {
+       
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
-        }
+        } 
     }
 }
