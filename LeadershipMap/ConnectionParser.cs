@@ -83,26 +83,39 @@ namespace LeadershipMap
 
             string[] specificLeaderData = GetArrayOfElements(GetRow(LeadersWithData[lead]));
 
-            for (int i = 5; i < specificLeaderData.Length-10; i++)
+            int count = 0;
+            for (int i = 0; i < rowHeaders.Count; i++)
             {
                 Connection connect = new Connection(lead, rowHeaders[i]);
+
+                double rating;
+                double.TryParse(specificLeaderData[i+4], out rating);
+                connect.AddRating(rating);
+
+
+               
+                
                 if (leaderConnections.Keys.Contains(rowHeaders[LeadersWithData[lead]]))
                 {
+                    
                     leaderConnections[rowHeaders[LeadersWithData[lead]]].Add(connect);
                 }
                 else
                 {
                     if (leaderConnections.Keys.Contains(lead))
                     {
+                        
                         leaderConnections[lead].Add(connect);
                     }
                     else
                     {
+                 
                         leaderConnections.Add(lead, new List<Connection> { connect });
                     }
+                    
 
-                }
-
+            }
+               
             }
             //not finished
             return DictionaryToList(leaderConnections);

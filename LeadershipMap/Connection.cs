@@ -36,6 +36,7 @@ namespace LeadershipMap
         public Connection(Leader friend1, Leader friend2)
         {
 
+            Ratings = new List<double>();
 
             connections = new Leader[2]; // make the friends data property
             connections[0] = friend1;
@@ -50,6 +51,8 @@ namespace LeadershipMap
 
         private double Average(List<double> doubles)
         {
+            if (totalRatings == 0) throw new InvalidProgramException();
+
             double sum = 0;
 
             foreach (double d in doubles)

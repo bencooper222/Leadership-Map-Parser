@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace LeadershipMap
 {
@@ -26,10 +27,11 @@ namespace LeadershipMap
 
             ConnectionParser cParse = new ConnectionParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Connections.csv", imsa.Leaders);
 
-
+            StreamWriter writer = File.CreateText("Erich.txt");
             foreach (Connection c in cParse.CreateSpecificLeaderConnections(imsa.Leaders.Find(item => item.uniqueID == "blueAnglerFish760"))){
-                Console.WriteLine(c);
+                writer.WriteLine(c);
             }
+            Console.WriteLine("done");
             Console.Read();
 
 
