@@ -11,22 +11,34 @@ namespace LeadershipMap
     {
         static void Main(string[] args)
         {
-            
+
             LeaderParser lParse = new LeaderParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Leaders.csv");
-/*
-            Leader anon = lParse.CreateLeader(lParse.GetRow(0)); // just for testing
 
-            LeaderWrapper lwrap = new LeaderWrapper(anon);
 
-            Console.WriteLine(lwrap.ToJson());
-            */
-            
-            List<Connection> TEST = new List<Connection>();
 
-            Academy imsa = new Academy("IMSA", lParse.CreateLeaderObjects(), TEST);
+
+          
+
+
+
+
+            Academy imsa = new Academy("IMSA", lParse.CreateLeaderObjects());
+
+            ConnectionParser cParse = new ConnectionParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Connections.csv", imsa.Leaders);
+
+
+            foreach (Connection c in cParse.CreateSpecificLeaderConnections(imsa.Leaders.Find(item => item.uniqueID == "blueAnglerFish760"))){
+                Console.WriteLine(c);
+            }
+            Console.Read();
+
+
+            imsa.Connections = cParse.CreateFriendships();
+
             imsa.CreateVerticesFile();
-            
-            Console.Read(); 
+            imsa.CreateEdgesFile();
+
+
         }
     }
 }

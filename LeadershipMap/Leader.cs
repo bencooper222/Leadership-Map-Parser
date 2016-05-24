@@ -68,6 +68,20 @@ namespace LeadershipMap
             }
         }
 
+        public override bool Equals(object obj)
+        {
+           if(!(obj is Leader)){
+                return false;
+            }
+
+            if (this == (Leader)obj)
+            {
+                return true;
+            }
+
+            return false; 
+        }
+
 
     }
 }

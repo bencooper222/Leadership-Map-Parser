@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Academy.cs" />
     <Compile Include="Connection.cs" />
+    <Compile Include="ConnectionParser.cs" />
     <Compile Include="ConnectionWrapper.cs" />
     <Compile Include="Leader.cs" />
     <Compile Include="LeaderParser.cs" />

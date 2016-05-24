@@ -8,33 +8,44 @@ namespace LeadershipMap
         public Leader[] connections { get; set; }
         private bool crowdSourced;
         private List<double> Ratings;
-        public double connectionStrength { get; }
+
+        public double connectionStrength
+        {
+            get
+            {
+                return Average(Ratings);
+            }
+        }
+
+        public int totalRatings
+        {
+            get
+            {
+                return Ratings.Count;
+            }
+        }
 
         public string uniqueId
         {
             get
             {
-                return connections[0] + "/" + connections[1];
+                return connections[0] + "/" + connections[1] + ": " + connectionStrength;
             }
         }
 
-        public Connection(Leader friend1, Leader friend2, bool friend1RatingExist, bool friend2RatingExist, params double[] ratings)
+        public Connection(Leader friend1, Leader friend2)
         {
-            crowdSourced = (friend1RatingExist && friend1RatingExist) ? true : false; //if both friends responded, then it counts as crowdsourced.
+
 
             connections = new Leader[2]; // make the friends data property
             connections[0] = friend1;
             connections[1] = friend2;
 
+        }
 
-
-            foreach (double d in ratings)
-            {
-                Ratings.Add(d);
-            }
-
-            connectionStrength = Average(Ratings);
-
+        public void AddRating(double rating)
+        {
+            Ratings.Add(rating);
         }
 
         private double Average(List<double> doubles)
@@ -49,10 +60,12 @@ namespace LeadershipMap
             return sum / doubles.Count;
         }
 
-        public string ToJson()
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return uniqueId;
         }
+
+
 
     }
 }

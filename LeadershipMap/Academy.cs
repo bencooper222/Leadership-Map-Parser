@@ -10,18 +10,18 @@ namespace LeadershipMap
     class Academy
     {
 
-        public List<Leader> leaders { get; set; }
-        public List<Connection> connections { get; set; }
+        public List<Leader> Leaders { get; set; }
+        public List<Connection> Connections { get; set; }
       
 
-        string name { get; set; }
+        string Name { get; set; }
 
-        public Academy(string name, List<Leader> leads, List<Connection> connectees)
+        public Academy(string name, List<Leader> leads)
         {
-            this.name = name;
+            Name = name;
 
-            leaders = leads;
-            connections = connectees;
+            Leaders = leads;
+        
 
             // might bring back that stuff but with strings
 /*
@@ -36,23 +36,14 @@ namespace LeadershipMap
                 }
             }
             */
-            foreach(Connection connect in connections) // make sure that all the friendships have actual leaders in them - just for robustness
-            {
-                foreach(Leader lead in connect.connections)
-                {
-                    if (!leaders.Contains(lead))
-                    {
-                        throw new InvalidProgramException();
-                    }
-                }
-            }
+           
         }
 
         public void CreateVerticesFile()
         {
             StreamWriter writer = File.CreateText("leaders.txt");
 
-            foreach(Leader lead in leaders)
+            foreach(Leader lead in Leaders)
             {
                 LeaderWrapper leadWrap = new LeaderWrapper(lead);
                 writer.WriteLine(leadWrap.ToJson());
@@ -61,12 +52,15 @@ namespace LeadershipMap
 
         public void CreateEdgesFile()
         {
+            
+
             StreamWriter writer = File.CreateText("friendships.txt");
 
             writer.WriteLine("\"nodes\"" + ": [");
-            foreach (Connection connectee in connections)
+            foreach (Connection connectee in Connections)
             {
-                writer.WriteLine(connectee.ToJson());
+                ConnectionWrapper connectWrap = new ConnectionWrapper(connectee);
+                writer.WriteLine(connectWrap.ToJson());
             }
             writer.WriteLine("]");
         }
