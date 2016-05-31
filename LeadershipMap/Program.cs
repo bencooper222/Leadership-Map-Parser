@@ -28,8 +28,11 @@ namespace LeadershipMap
             ConnectionParser cParse = new ConnectionParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Connections.csv", imsa.Leaders);
 
             StreamWriter writer = File.CreateText("Erich.txt");
+            writer.AutoFlush = true;
+
             foreach (Connection c in cParse.CreateSpecificLeaderConnections(imsa.Leaders.Find(item => item.uniqueID == "blueAnglerFish760"))){
                 writer.WriteLine(c);
+                Console.WriteLine(c);
             }
             Console.WriteLine("done");
             Console.Read();

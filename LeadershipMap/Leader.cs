@@ -25,7 +25,7 @@ namespace LeadershipMap
             }
         }
 
-        public int gradClass { get; set; } // make sure to throw ArgumentOutOfRangeException() if this isn't 6,7 or 8
+        public int gradClass { get; set; } 
 
         public Leader(string name, string uniqueID, int classNumber)
         {
@@ -33,7 +33,9 @@ namespace LeadershipMap
             lastName = name.Substring(name.IndexOf(' ') + 1);
             this.uniqueID = uniqueID;
 
-            gradClass = classNumber; // throw that exception here pls
+
+            if (!(new List<int> { 6, 7, 8 }.Contains(classNumber))) throw new ArgumentOutOfRangeException();
+            gradClass = classNumber; 
 
 
             Organizations = new List<string>();

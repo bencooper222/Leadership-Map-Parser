@@ -5,7 +5,7 @@ namespace LeadershipMap
 {
     public class Connection
     {
-        public Leader[] connections { get; set; }
+        public Leader[] connectees { get; set; }
         private bool crowdSourced;
         private List<double> Ratings;
 
@@ -29,18 +29,18 @@ namespace LeadershipMap
         {
             get
             {
-                return connections[0] + "/" + connections[1] + ": " + connectionStrength;
+                return connectees[0] + "/" + connectees[1] + ": " + connectionStrength;
             }
         }
 
         public Connection(Leader friend1, Leader friend2)
         {
-
+            
             Ratings = new List<double>();
 
-            connections = new Leader[2]; // make the friends data property
-            connections[0] = friend1;
-            connections[1] = friend2;
+            connectees = new Leader[2]; // make the friends data property
+            connectees[0] = friend1;
+            connectees[1] = friend2;
 
         }
 
@@ -68,7 +68,41 @@ namespace LeadershipMap
             return uniqueId;
         }
 
+        public static bool operator ==(Connection one, Connection two)
+        {
+            if ((one.connectees[0] == two.connectees[0] & one.connectees[1] == two.connectees[1])
+                 || (one.connectees[0] == two.connectees[1] & one.connectees[1] == two.connectees[0]))
+            {
+                return true;
+            }
 
+            return false;
+        }
 
+        public static bool operator !=(Connection one, Connection two)
+        {
+            if ((one.connectees[0] == two.connectees[0] & one.connectees[1] == two.connectees[1])
+                 || (one.connectees[0] == two.connectees[1] & one.connectees[1] == two.connectees[0]))
+            {
+                return !true;
+            }
+
+            return !false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Connection))
+            {
+                return false;
+            }
+
+            if (this == (Connection)obj)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

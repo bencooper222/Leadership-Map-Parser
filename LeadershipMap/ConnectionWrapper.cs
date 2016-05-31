@@ -16,8 +16,8 @@ namespace LeadershipMap
         public ConnectionWrapper(Connection ship)
         {
             id = ship.uniqueId;
-            source = ship.connections[0].uniqueID;
-            target = ship.connections[1].uniqueID;
+            source = ship.connectees[0].uniqueID;
+            target = ship.connectees[1].uniqueID;
         }
 
     }

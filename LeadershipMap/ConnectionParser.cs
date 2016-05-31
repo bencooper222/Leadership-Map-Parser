@@ -11,7 +11,7 @@ namespace LeadershipMap
     {
 
         private List<Leader> fullListLeaders; // the full database of leaders MIGHT be unecessary
-        private Dictionary<Leader, int> LeadersWithData = new Dictionary<Leader, int>(); // list of leaders who actually filled out the survey
+        private Dictionary<Leader, int> LeadersWithData = new Dictionary<Leader, int>(); // list of leaders who actually filled out the survey with their row number
         private List<Leader> rowHeaders; // the order of the leaders in the survey
 
         StreamWriter missing = File.CreateText("theMissing.txt"); // send this to a better place
@@ -19,7 +19,7 @@ namespace LeadershipMap
         public ConnectionParser(string txtFileLocation, List<Leader> relevantPeople) : base(txtFileLocation)
         {
 
-            fullListLeaders = relevantPeople;
+            fullListLeaders = relevantPeople; // from mainDatabase
 
             for (int i = 3; i < this.CountLines(); i++) // add all the leaders and their rows locations to a dictionary
             {
@@ -27,10 +27,10 @@ namespace LeadershipMap
                 string row = GetRow(i);
                 string id = GetArrayOfElements(row)[3];
 
-                Leader l = fullListLeaders.Find(item => item.uniqueID == id);
+                Leader evaluatee = fullListLeaders.Find(item => item.uniqueID == id);
 
 
-                if (!LeadersWithData.Keys.Contains(l)) LeadersWithData.Add(fullListLeaders.Find(item => item.uniqueID == id), i);
+                if (!LeadersWithData.Keys.Contains(evaluatee)) LeadersWithData.Add(fullListLeaders.Find(item => item.uniqueID == id), i);
 
 
             }
@@ -83,7 +83,7 @@ namespace LeadershipMap
 
             string[] specificLeaderData = GetArrayOfElements(GetRow(LeadersWithData[lead]));
 
-            int count = 0;
+        
             for (int i = 0; i < rowHeaders.Count; i++)
             {
                 Connection connect = new Connection(lead, rowHeaders[i]);
@@ -92,30 +92,45 @@ namespace LeadershipMap
                 double.TryParse(specificLeaderData[i+4], out rating);
                 connect.AddRating(rating);
 
+                Console.WriteLine(i);
 
-               
-                
-                if (leaderConnections.Keys.Contains(rowHeaders[LeadersWithData[lead]]))
+
+
+                if (leaderConnections.Keys.Contains(lead))
                 {
-                    
-                    leaderConnections[rowHeaders[LeadersWithData[lead]]].Add(connect);
+
+                    leaderConnections[lead].Add(connect);
                 }
                 else
                 {
-                    if (leaderConnections.Keys.Contains(lead))
-                    {
-                        
-                        leaderConnections[lead].Add(connect);
-                    }
-                    else
-                    {
-                 
-                        leaderConnections.Add(lead, new List<Connection> { connect });
-                    }
-                    
 
-            }
-               
+                    leaderConnections.Add(lead, new List<Connection> { connect });
+                }
+
+
+                /*
+
+                 if (leaderConnections.Keys.Contains(rowHeaders[LeadersWithData[lead]]))
+                 {
+
+                     leaderConnections[rowHeaders[LeadersWithData[lead]]].Add(connect);
+                 }
+                 else
+                 {
+                     if (leaderConnections.Keys.Contains(lead))
+                     {
+
+                         leaderConnections[lead].Add(connect);
+                     }
+                     else
+                     {
+
+                         leaderConnections.Add(lead, new List<Connection> { connect });
+                     }
+
+
+             }
+                */
             }
             //not finished
             return DictionaryToList(leaderConnections);
