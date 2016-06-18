@@ -18,27 +18,25 @@ namespace LeadershipMap
 
 
 
-          
-
-
-
 
             Academy imsa = new Academy("IMSA", lParse.CreateLeaderObjects());
 
             ConnectionParser cParse = new ConnectionParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Connections.csv", imsa.Leaders);
 
-            StreamWriter writer = File.CreateText("Erich.txt");
+            StreamWriter writer = File.CreateText("connections.txt");
             writer.AutoFlush = true;
-
-            foreach (Connection c in cParse.CreateSpecificLeaderConnections(imsa.Leaders.Find(item => item.uniqueID == "blueAnglerFish760"))){
+            foreach (Connection c in cParse.CreateConnections())
+            {
                 writer.WriteLine(c);
-                Console.WriteLine(c);
             }
-            Console.WriteLine("done");
+
+            Console.WriteLine("YO");
             Console.Read();
 
 
-            imsa.Connections = cParse.CreateFriendships();
+
+
+            imsa.Connections = cParse.CreateConnections();
 
             imsa.CreateVerticesFile();
             imsa.CreateEdgesFile();

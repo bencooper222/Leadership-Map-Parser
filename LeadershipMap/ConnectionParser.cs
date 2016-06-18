@@ -10,8 +10,7 @@ namespace LeadershipMap
     class ConnectionParser : Parser
     {
 
-        private List<Leader> fullListLeaders; // the full database of leaders MIGHT be unecessary
-        private Dictionary<Leader, int> LeadersWithData = new Dictionary<Leader, int>(); // list of leaders who actually filled out the survey with their row number
+        private List<Leader> fullListLeaders;
         private List<Leader> rowHeaders; // the order of the leaders in the survey
 
         StreamWriter missing = File.CreateText("theMissing.txt"); // send this to a better place
@@ -21,19 +20,7 @@ namespace LeadershipMap
 
             fullListLeaders = relevantPeople; // from mainDatabase
 
-            for (int i = 3; i < this.CountLines(); i++) // add all the leaders and their rows locations to a dictionary
-            {
-
-                string row = GetRow(i);
-                string id = GetArrayOfElements(row)[3];
-
-                Leader evaluatee = fullListLeaders.Find(item => item.uniqueID == id);
-
-
-                if (!LeadersWithData.Keys.Contains(evaluatee)) LeadersWithData.Add(fullListLeaders.Find(item => item.uniqueID == id), i);
-
-
-            }
+           
 
             rowHeaders = GetRowHeader(GetRow(2));
         }
@@ -50,129 +37,44 @@ namespace LeadershipMap
 
         }
 
-        /// <summary>
-        /// Checks if the given Leader exists in the list that this parser's been given
-        /// </summary>
-        /// <param name="test"></param>
-        /// <returns>True if exists, false if not</returns>
-        private bool CheckLeaderExists(Leader test)
+
+        public List<Connection> CreateConnections() // what does internal mean
         {
-            foreach (Leader lead in fullListLeaders)
-            {
-                if (lead == test) return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Given a specific leader, returns all the connections they have
-        /// </summary>
-        /// <param name="lead">This should be taken from the full list of leaders</param>
-        /// <returns></returns>
-        public List<Connection> CreateSpecificLeaderConnections(Leader lead)
-        {
-            if (!CheckLeaderExists(lead))
-            {
-                missing.WriteLine(lead);
-                return null;
-            }
-            //I need to create a list of all the names in the surveydatabase
-
-            Dictionary<Leader, List<Connection>> leaderConnections = new Dictionary<Leader, List<Connection>>();
-
-            string[] specificLeaderData = GetArrayOfElements(GetRow(LeadersWithData[lead]));
-
-        
-            for (int i = 0; i < rowHeaders.Count; i++)
-            {
-                Connection connect = new Connection(lead, rowHeaders[i]);
-
-                double rating;
-                double.TryParse(specificLeaderData[i+4], out rating);
-                connect.AddRating(rating);
-
-                Console.WriteLine(i);
-
-
-
-                if (leaderConnections.Keys.Contains(lead))
-                {
-
-                    leaderConnections[lead].Add(connect);
-                }
-                else
-                {
-
-                    leaderConnections.Add(lead, new List<Connection> { connect });
-                }
-
-
-                /*
-
-                 if (leaderConnections.Keys.Contains(rowHeaders[LeadersWithData[lead]]))
-                 {
-
-                     leaderConnections[rowHeaders[LeadersWithData[lead]]].Add(connect);
-                 }
-                 else
-                 {
-                     if (leaderConnections.Keys.Contains(lead))
-                     {
-
-                         leaderConnections[lead].Add(connect);
-                     }
-                     else
-                     {
-
-                         leaderConnections.Add(lead, new List<Connection> { connect });
-                     }
-
-
-             }
-                */
-            }
-            //not finished
-            return DictionaryToList(leaderConnections);
-        }
-
-        /// <summary>
-        /// Converts a dictionary to list by taking all of the values for each key and making a list
-        /// </summary>
-        /// <param name="dictionary">A Leader, List<Connection> dictionary</param>
-        /// <returns>Full list of all connections in the dictionary</returns>
-        private List<Connection> DictionaryToList(Dictionary<Leader, List<Connection>> dictionary)
-        {
+            // this needs to check if the friendship has already been created and if so, not add it again. Not sure how sigma.js reacts to multiple duplicate edges but I don't want to find out
+            // make sure it does nothing if it gets a null
             List<Connection> connections = new List<Connection>();
 
-            foreach (Leader lead in dictionary.Keys)
+            for (int i = 3; i < CountLines(); i++) // pretty sure it should be i=3 or something
             {
-                foreach (Connection c in dictionary[lead])
-                {
-                    connections.Add(c);
+                string[] leaderData = GetArrayOfElements(GetRow(i));
+
+                for (int ratingIndex = 5; ratingIndex < rowHeaders.Count; ratingIndex++)
+                {   
+                    Leader leaderAtRowIndex = new Leader(leaderData[2], leaderData[3], int.Parse(leaderData[4]));
+
+                    if (leaderAtRowIndex == rowHeaders[ratingIndex - 5]) continue; // don't create a connection between the same people
+                    Connection potentialConnection = new Connection(rowHeaders[ratingIndex - 5],
+                        leaderAtRowIndex);
+
+                    int location = connections.IndexOf(potentialConnection);
+
+                    //if DNE, create. Else, add new rating.
+                    if (location != -1) // if it exists
+                    {
+                        connections[location].AddRating(int.Parse(leaderData[ratingIndex]));
+                    }
+                    else
+                    {
+                
+                        potentialConnection.AddRating(int.Parse(leaderData[ratingIndex]));
+                        connections.Add(potentialConnection);
+                    }
+
                 }
             }
 
             return connections;
-        }
-
-        private Connection CreateSingleConnection()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public List<Connection> CreateFriendships() // what does internal mean
-        {
-
-            // this needs to check if the friendship has already been created and if so, not add it again. Not sure how sigma.js reacts to multiple duplicate edges but I don't want to find out
-            //make sure it does nothing if it gets a null
-
-
-
-
-            throw new NotImplementedException();
+            //       throw new NotImplementedException();
         }
     }
 }
