@@ -54,7 +54,7 @@ namespace LeadershipMap
         {
             
 
-            StreamWriter writer = File.CreateText("friendships.txt");
+            StreamWriter writer = File.CreateText("connections_at_threshold.txt");
 
             writer.WriteLine("\"nodes\"" + ": [");
             foreach (Connection connectee in Connections)

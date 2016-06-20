@@ -12,17 +12,17 @@ namespace LeadershipMap
 
         private List<Leader> fullListLeaders;
         private List<Leader> rowHeaders; // the order of the leaders in the survey
+        private IsConnection Evaluate;
 
         StreamWriter missing = File.CreateText("theMissing.txt"); // send this to a better place
 
-        public ConnectionParser(string txtFileLocation, List<Leader> relevantPeople) : base(txtFileLocation)
+        public ConnectionParser(string txtFileLocation, List<Leader> relevantPeople, IsConnection IsConnection)
+            : base(txtFileLocation)
         {
 
             fullListLeaders = relevantPeople; // from mainDatabase
-
-           
-
             rowHeaders = GetRowHeader(GetRow(2));
+            this.Evaluate = IsConnection;
         }
 
         private List<Leader> GetRowHeader(string IDRow)
@@ -43,18 +43,19 @@ namespace LeadershipMap
             // this needs to check if the friendship has already been created and if so, not add it again. Not sure how sigma.js reacts to multiple duplicate edges but I don't want to find out
             // make sure it does nothing if it gets a null
             List<Connection> connections = new List<Connection>();
-
+            List<Leader> leadersWithSurvey = new List<Leader>();
             for (int i = 3; i < CountLines(); i++) // pretty sure it should be i=3 or something
             {
                 string[] leaderData = GetArrayOfElements(GetRow(i));
 
                 for (int ratingIndex = 5; ratingIndex < rowHeaders.Count; ratingIndex++)
-                {   
+                {
                     Leader leaderAtRowIndex = new Leader(leaderData[2], leaderData[3], int.Parse(leaderData[4]));
+                    leadersWithSurvey.Add(leaderAtRowIndex);
 
-                    if (leaderAtRowIndex == rowHeaders[ratingIndex - 5]) continue; // don't create a connection between the same people
                     Connection potentialConnection = new Connection(rowHeaders[ratingIndex - 5],
                         leaderAtRowIndex);
+
 
                     int location = connections.IndexOf(potentialConnection);
 
@@ -65,7 +66,7 @@ namespace LeadershipMap
                     }
                     else
                     {
-                
+
                         potentialConnection.AddRating(int.Parse(leaderData[ratingIndex]));
                         connections.Add(potentialConnection);
                     }
@@ -73,8 +74,35 @@ namespace LeadershipMap
                 }
             }
 
-            return connections;
+            return RemoveInvalidConnections(connections); // get rid of the bad connections
             //       throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Iterates through list of connections to get rid of invalid ones
+        /// </summary>
+        /// <param name="connections"></param>
+        /// <returns></returns>
+        private List<Connection> RemoveInvalidConnections(List<Connection> connections)
+        {
+            
+
+            for (int i = 0; i < connections.Count; i++)
+            {
+                if (connections[i].connectees[0] == connections[i].connectees[1]) // remove connections between the same people
+                {
+                    connections.Remove(connections[i]);
+                    continue;
+                }
+
+                if (Evaluate(connections[i]))
+                {
+                    connections.Remove(connections[i]);
+                    continue;
+                }
+            }
+
+            return connections;
         }
     }
 }
