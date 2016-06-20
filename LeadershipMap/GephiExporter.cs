@@ -45,7 +45,8 @@ namespace LeadershipMap
 
             foreach (Connection e in Edges)
             {
-                string line = e.connectees[0].uniqueID + "," + e.connectees[1].uniqueID + "," + e.connectionStrength + "," + "undirected";
+                string line = e.connectees[0].uniqueID + "," + e.connectees[1].uniqueID + "," +
+                    e.connectionStrength + "," + "undirected";
                 edgesCSV.WriteLine(line);
             }
             //https://gephi.org/users/supported-graph-formats/spreadsheet/
