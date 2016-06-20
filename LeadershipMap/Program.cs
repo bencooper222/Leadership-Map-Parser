@@ -15,8 +15,8 @@ namespace LeadershipMap
     {
         static void Main(string[] args)
         {
-
-            LeaderParser lParse = new LeaderParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Leaders.csv");
+            
+            LeaderParser lParse = new LeaderParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/RAW/Leaders.csv");
 
 
 
@@ -25,28 +25,32 @@ namespace LeadershipMap
             Academy imsa = new Academy("IMSA", lParse.CreateLeaders());
 
             IsConnection evaluate = new IsConnection(ConnectionDeservesEdge);
-            ConnectionParser cParse = new ConnectionParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/Connections.csv", imsa.Leaders,evaluate);
+            
+            ConnectionParser cParse = new ConnectionParser("C:/Users/Benjamn/Google Drive/Leadership Map/Data/RAW/Connections.csv", imsa.Leaders,evaluate);
 
-            StreamWriter writer = File.CreateText("connections.txt");
-            writer.AutoFlush = true;
-            foreach (Connection c in cParse.CreateConnections())
-            {
-                writer.WriteLine(c);
-            }
-
-            Console.WriteLine("YO");
-            Console.Read();
-
+         
 
 
 
             imsa.Connections = cParse.CreateConnections();
 
+            
+
             imsa.CreateVerticesFile();
             imsa.CreateEdgesFile();
 
+            Console.WriteLine(evaluate(imsa.Connections[0]));
+            // to use with Gephi organization tools
+            GephiExporter export = new GephiExporter(imsa.Leaders, imsa.Connections, "C:/Users/Benjamn/Google Drive/Leadership Map/Data/Gephi");
+            export.Export();
+
+            Console.WriteLine("Complete");
+            Console.Read();
+
+
 
         }
+
 
         /// <summary>
         /// Determine if certain connection deserves an edge on the graph
@@ -55,8 +59,14 @@ namespace LeadershipMap
         /// <returns></returns>
         private static bool ConnectionDeservesEdge(Connection connect)
         {
+            /*
             int magicNumber = 2; // the number used to check the rating of the connection
             if (magicNumber < 1 || magicNumber > 4) throw new ArgumentOutOfRangeException();
+            return true;
+            */
+
+            if (connect.connectionStrength == 0) return false;
+
             return true;
         }
     }

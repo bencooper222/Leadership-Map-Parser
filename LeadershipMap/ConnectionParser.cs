@@ -85,22 +85,11 @@ namespace LeadershipMap
         /// <returns></returns>
         private List<Connection> RemoveInvalidConnections(List<Connection> connections)
         {
+            List<Connection>.Enumerator iterate = connections.GetEnumerator();
+
+            connections.RemoveAll(c => c.connectees[0] == c.connectees[1]); // remove all connections with the same people
+            connections.RemoveAll(c => !Evaluate(c)); // remove all connections deemed not high enough
             
-
-            for (int i = 0; i < connections.Count; i++)
-            {
-                if (connections[i].connectees[0] == connections[i].connectees[1]) // remove connections between the same people
-                {
-                    connections.Remove(connections[i]);
-                    continue;
-                }
-
-                if (Evaluate(connections[i]))
-                {
-                    connections.Remove(connections[i]);
-                    continue;
-                }
-            }
 
             return connections;
         }
