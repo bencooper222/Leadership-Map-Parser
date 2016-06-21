@@ -7,19 +7,15 @@ using System.IO;
 
 namespace LeadershipMap
 {
-    class Parser
+    class SpreadsheetParser
     {
         private string txtFileLocation;
-        public Parser(string textFileLocation)
+        public SpreadsheetParser(string textFileLocation)
         {
             this.txtFileLocation = textFileLocation;
         }
 
-        static Parser()
-        {
-
-        }
-
+    
         /// <summary>
         /// Return a specific line number of the text file
         /// </summary>

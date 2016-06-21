@@ -7,7 +7,7 @@ using System.IO;
 
 namespace LeadershipMap
 {
-    class LeaderParser : Parser
+    class LeaderParser : SpreadsheetParser
     {
 
 

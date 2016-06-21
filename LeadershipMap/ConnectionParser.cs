@@ -7,7 +7,7 @@ using System.IO;
 
 namespace LeadershipMap
 {
-    class ConnectionParser : Parser
+    class ConnectionParser : SpreadsheetParser
     {
 
         private List<Leader> fullListLeaders;
