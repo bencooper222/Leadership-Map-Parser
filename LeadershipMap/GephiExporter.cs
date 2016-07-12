@@ -7,7 +7,7 @@ using System.IO;
 
 namespace LeadershipMap
 {
-    class GephiExporter
+    class GephiExporter //all taken from https://gephi.org/users/supported-graph-formats/spreadsheet/
     {
 
         List<Leader> Vertices;
@@ -49,7 +49,7 @@ namespace LeadershipMap
                     e.connectionStrength + "," + "undirected";
                 edgesCSV.WriteLine(line);
             }
-            //https://gephi.org/users/supported-graph-formats/spreadsheet/
+            
         }
 
         public void Export()

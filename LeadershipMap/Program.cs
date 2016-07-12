@@ -59,13 +59,9 @@ namespace LeadershipMap
         /// <returns></returns>
         private static bool ConnectionDeservesEdge(Connection connect)
         {
-            /*
-            int magicNumber = 2; // the number used to check the rating of the connection
-            if (magicNumber < 1 || magicNumber > 4) throw new ArgumentOutOfRangeException();
-            return true;
-            */
+           
 
-            if (connect.connectionStrength == 0) return false;
+            if (connect.connectionStrength !=4) return false;
 
             return true;
         }
