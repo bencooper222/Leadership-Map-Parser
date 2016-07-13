@@ -25,7 +25,20 @@ namespace LeadershipMap
             }
         }
 
-        public int gradClass { get; set; } 
+        public int gradClass { get; set; }
+        public int hall{
+            get
+            {
+                return hall;
+            }
+            set
+            {
+                if(value<1 ||value>7)
+                {
+                    throw new InvalidProgramException();
+                }
+            }
+        } 
 
         public Leader(string name, string uniqueID, int classNumber)
         {
