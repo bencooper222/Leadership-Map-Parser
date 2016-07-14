@@ -33,7 +33,7 @@ namespace LeadershipMap
             }
             set
             {
-                if(value<1 ||value>7)
+                if(value<1 || value>7)  // TODO: find if there's a better way to deal with number in between
                 {
                     throw new InvalidProgramException();
                 }
