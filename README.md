@@ -2,7 +2,6 @@
 ## So what's this?
 This project is titled Leadership Map because that's how I used it. Data was collected from student leaders at the Illinois Mathematics and Science Academy on who their friends were, parsed by this program, graphed using Gephi and will eventually be visualized by sigma.js. There will soon be a blog post that will take on most of the roles that a readme normally does but I'll still keep the really nerdy stuff here. 
 
-WASSSUP
 
 ## Classes
 
