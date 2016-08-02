@@ -27,11 +27,22 @@ namespace LeadershipMap
             StreamWriter verticesCSV = File.CreateText(fileLocation + "/Nodes.csv");
             verticesCSV.AutoFlush = true;
 
-            verticesCSV.WriteLine("Id,Label");
+            verticesCSV.WriteLine("Id,Label,Organizations");
 
             foreach (Leader v in Vertices)
             {
-                string line = v.uniqueID + "," + v.fullName;
+                char quotation = '\u0022';
+                //TODO: add organization list here
+                string line = v.uniqueID + "," + v.fullName + "," + quotation;
+
+                if (!v.hasOrganizations) Console.WriteLine(v.fullName + " has no organizations associated");
+                foreach(string organization in v.Organizations)
+                {
+                    line += organization + ",";
+                }
+                line = line.TrimEnd(','); // remove extra comma
+                line += quotation;
+
                 verticesCSV.WriteLine(line);
             }
         }

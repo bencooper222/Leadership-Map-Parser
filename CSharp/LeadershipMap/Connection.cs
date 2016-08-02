@@ -14,7 +14,7 @@ namespace LeadershipMap
                 return false;
             }
         }
-        private List<double> Ratings;
+        public List<double> Ratings { get; }
 
         public double connectionStrength
         {

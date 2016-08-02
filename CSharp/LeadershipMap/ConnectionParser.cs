@@ -50,7 +50,11 @@ namespace LeadershipMap
 
                 for (int ratingIndex = 5; ratingIndex < rowHeaders.Count; ratingIndex++)
                 {
+                  
                     Leader leaderAtRowIndex = new Leader(leaderData[2], leaderData[3], int.Parse(leaderData[4]));
+
+
+
                     leadersWithSurvey.Add(leaderAtRowIndex);
 
                     Connection potentialConnection = new Connection(rowHeaders[ratingIndex - 5],
@@ -75,21 +79,21 @@ namespace LeadershipMap
             }
 
             return RemoveInvalidConnections(connections); // get rid of the bad connections
-            //       throw new NotImplementedException();
+
         }
 
         /// <summary>
         /// Iterates through list of connections to get rid of invalid ones
         /// </summary>
         /// <param name="connections"></param>
-        /// <returns></returns>
+        /// <returns>A list of only valid connections</returns>
         private List<Connection> RemoveInvalidConnections(List<Connection> connections)
         {
-            List<Connection>.Enumerator iterate = connections.GetEnumerator();
+          
 
             connections.RemoveAll(c => c.connectees[0] == c.connectees[1]); // remove all connections with the same people
-            connections.RemoveAll(c => !Evaluate(c)); // remove all connections deemed not high enough
-            
+            connections.RemoveAll(c => !Evaluate(c)); // remove all connections deemed not strong enough
+
 
             return connections;
         }
