@@ -46,16 +46,16 @@ Do note that the elements with numbers continue till the end of the survey. Here
 5. Repeat till `i<CountRows()`
 Finally, it checks with the delegate passed to the parser to verify if that connection is strong enough to deserve an object (and eventually, an edge in the graph). As of this writing, it only gives "perfect" connections (4s on both sides) a connection but this will be altered continously.
 
-###JSONWrapper
+### JSONWrapper
 Uses Newtonsoft's marvelous Json.NET page to serialize itself as a JSON and return the result. FYI, you'll have to use NuGet package manger to get the package. They describe how to on their [website](http://www.newtonsoft.com/json).
-####LeaderWrapper
+#### LeaderWrapper
 Takes a leader object and only includes the necessary fields
-####ConnectionWrapper
+#### ConnectionWrapper
 Ditto for connections
-###GephiExporter
+### GephiExporter
 Pass it a list of connections, leaders or (coming soon!) Academy object and a file location and it will create a `nodes.csv` and `edges.csv` file that Gephi will import in. From there, I suggest using their layout tools in preparation for sigma.js
 
-##License & Usage
+## License & Usage
 Licensed under the MIT license.
 If you find a problem, create an issue and I'll take a look or (better!) make a pull request with your fix.
 
